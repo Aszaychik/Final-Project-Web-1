@@ -1,9 +1,13 @@
+<?php  
+    require 'functions.php';
+    $peminjam_db = query("SELECT * FROM peminjam");
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ASZAYCHIK</title>
+    <title>Admin List</title>
     <!-- Bootstrap Core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Boxicon CSS -->
@@ -30,10 +34,10 @@
         <div>
           <a href="#" class="nav_logo"> <i class="bx bx-layer nav_logo-icon"></i> <span class="nav_logo-name">ASZAYCHIK</span> </a>
           <div class="nav_list">
-            <a href="index.html" class="nav_link active"> <i class="bx bx-home nav_icon"></i> <span class="nav_name">HOME</span> </a>
+            <a href="index.html" class="nav_link"> <i class="bx bx-home nav_icon"></i> <span class="nav_name">HOME</span> </a>
             <a href="#" class="nav_link"> <i class="bx bx-disc nav_icon"></i> <span class="nav_name">Data Blu-ray</span> </a>
             <a href="admin-db.php" class="nav_link"> <i class="bx bx-user nav_icon"></i> <span class="nav_name">Data Admin</span>
-            <a href="peminjam-db.php" class="nav_link"> <i class="bx bx-group nav_icon"></i> <span class="nav_name">Data Peminjam</span> </a>
+            <a href="peminjam-db.php" class="nav_link active"> <i class="bx bx-group nav_icon"></i> <span class="nav_name">Data Peminjam</span> </a>
             <a href="#" class="nav_link"> <i class="bx bx-cart-alt nav_icon"></i> <span class="nav_name">Data Peminjaman</span> </a>
             <a href="#" class="nav_link"> <i class="bx bxs-hourglass nav_icon"></i> <span class="nav_name">Data Pengembalian</span> </a>
             <a href="#" class="nav_link"> <i class="bx bxs-report nav_icon"></i> <span class="nav_name">Laporan</span> </a>
@@ -43,25 +47,41 @@
       </nav>
     </div>
     <!--Container Main start-->
-    <div class="height-100 content-container">
-      <h4>CONTENT</h4>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati nobis necessitatibus iste temporibus deleniti sapiente veritatis quia vitae, voluptatibus error praesentium quibusdam suscipit, esse ipsum dignissimos vel
-        blanditiis veniam porro.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis provident architecto laudantium laboriosam consectetur eveniet odio possimus, dolores nisi sequi maiores perferendis atque ullam ut quasi eius, quidem fugit hic.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, quos officia! Praesentium unde laudantium temporibus, expedita modi libero alias similique veniam facilis molestiae corrupti officia eligendi aperiam nobis, officiis
-        quasi?
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet doloremque quaerat recusandae! Reprehenderit officiis provident est velit, deserunt architecto, nihil vitae quia eaque quos doloribus veritatis consectetur numquam
-        temporibus aliquid.
-      </p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum delectus ipsa repudiandae qui voluptate quas culpa optio nobis nostrum esse amet quisquam temporibus consectetur, non doloremque adipisci odio molestiae in!</p>
-    </div>
+    <section class="jumbotron text-center text-light mt-5">
+      <h1 class="mt-5">DATA PEMINJAM</h1>
+      <div class="table-responsive">
+        <table cellspacing="" cellpadding="" class="mt-5 mb-5 characters-table m-auto w-50">
+        
+          <tr class="bg-dark ">
+              <th>No.</th>
+              <th>Actions</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Address</th>
+              <th>Personal Number</th>
+          </tr>
+          <?php $i = 1 ;?>
+          <?php foreach ($peminjam_db as $row): ?>
+          <tr class="">
+              <td><?= $i; ?></td>
+              <td>
+                  <a href=""><button class="btn btn-dark btn-landing">Update</button></a>
+                  |
+                  <a href="delete-peminjam.php?id=<?= $row["KD_PEMINJAM"];?>" onclick="return confirm('Are you sure ?');"><button class="btn btn-dark btn-landing">Delete</button></a>
+              </td>
+              <td><?= $row["KD_PEMINJAM"]; ?></td>
+              <td><?= $row["NAMA_PEMINJAM"]; ?></td>
+              <td><?= $row["JK_PEMINJAM"]; ?></td>
+              <td><?= $row["ALMT_PEMINJAM"] ;?></td>
+              <td><?= $row["NO_TLPPEMINJAM"] ;?></td>
+              </tr>
+          <?php $i++; ?>
+              <?php endforeach; ?>
+            </table>
+            <a href="insert-peminjam.php"><button class="btn btn-dark btn-landing">Insert</button></a>
+      </div>
+    </section>
     <!--Container Main end-->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
